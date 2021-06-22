@@ -44,8 +44,20 @@ function imprimirProduto(retorno) {
         content += '</div>';
         content += '<div class="div-infos-produto">';
         content += '<h1 class="h1-titulo-produto">'+retorno[i].nome+'</h1>';
-        content += '<h2 class="h2-descricao-produto">'+retorno[i].descricao+'</h2>';
         content += '<h3 class="h3-preco-produto">R$ '+retorno[i].preco+'</h3>';
+        content += '<h2 class="h2-descricao-produto">'+retorno[i].descricao+'</h2>';
+        content += '<select class="select-tamanho">';
+        content += '<option>small (P)</option>';
+        content += '<option>medium (M)</option>';
+        content += '<option>large (G)</option>';
+        content += '<option>xlarge (GG)</option>';
+        content += '</select>';
+        content += '<h1 class="h1-tamanho-produto">Tamanhos</h1>';
+        content += '<p class="p-tamanho-produto">small 55x68cm</p>';
+        content += '<p class="p-tamanho-produto">medium 60x69cm</p>';
+        content += '<p class="p-tamanho-produto">large 69x74cm</p>';
+        content += '<p class="p-tamanho-produto">xlarge 72x74cm</p>';
+        content += '<p class="p-tamanho-produto"></p>';
         content += '<button class="botao-comprar" value="'+retorno[i].id+'" onclick="chamarCompra('+retorno[i].id+')">COMPRAR</button>';
         content += '</div>';
     }
