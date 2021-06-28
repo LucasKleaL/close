@@ -1,0 +1,100 @@
+<html>
+
+    <head>
+        <title>CLOSE! | order</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/global.css">
+        <link rel="stylesheet" type="text/css" href="../css/order.css">
+        <link rel="shortcut icon" href="../public/img/close_logo.png">
+        <script type="text/javascript" src="../js/jquery-3.5.1.js"></script>
+        <script type="text/javascript" src="../js/order.js"></script>
+    </head>
+
+    <body>
+
+        <header>
+            <div>
+                <a href="../"><img src="../public/img/close_logo_escrito.png" alt="CLOSE!" class="logo-header"></a>
+                <h1 class="opcoes-header">About</h1>
+                <a href="../cart/"><h1 class="opcoes-header">Cart</h1></a>
+                <h1 class="opcoes-header">Social medias</h1>
+                <a href="../"><h1 class="opcoes-header">Shop</h1></a>
+            </div>
+        </header>
+
+        <div class="div-container">
+
+            <div class="div-order">
+
+                <h1 class="h1-titulo-order">Informações do pedido</h1>
+
+                <div class="div-input">
+                    <h2 class="h2-titulo-input">Nome completo</h2>
+                    <input type="text" id="inputNome" class="input-texto-order" placeholder="Close Silva" title="Name">
+                </div>
+
+                <div class="div-input">
+                    <h2 class="h2-titulo-input">Estado</h2>
+                    <select class="input-select" title="State" id="inputFederacao">
+                        <option>AC</option>
+                        <option>AL</option>
+                        <option>AP</option>
+                        <option>AM</option>
+                        <option>BA</option>
+                        <option>CE</option>
+                        <option>DF</option>
+                        <option>ES</option>
+                        <option>GO</option>
+                        <option>MA</option>
+                        <option>MT</option>
+                        <option>MS</option>
+                        <option>MG</option>
+                        <option>PA</option>
+                        <option>PB</option>
+                        <option>PR</option>
+                        <option>PE</option>
+                        <option>PI</option>
+                        <option>RJ</option>
+                        <option>RN</option>
+                        <option>RS</option>
+                        <option>RO</option>
+                        <option>RR</option>
+                        <option>SC</option>
+                        <option>SP</option>
+                        <option>SE</option>
+                        <option>TO</option>
+                    </select>
+                </div>
+
+                <div class="div-input">
+                    <h2 class="h2-titulo-input">Cidade</h2>
+                    <input type="text" id="inputCidade" class="input-texto-order" placeholder="Contenda" title="City">
+                </div>
+
+                <div class="div-input">
+                    <h2 class="h2-titulo-input">Bairro</h2>
+                    <input type="text" id="inputBairro" class="input-texto-order" placeholder="Centro" title="District">
+                </div>
+
+                <div class="div-input">
+                    <h2 class="h2-titulo-input">Rua</h2>
+                    <input type="text" id="inputRua" class="input-texto-order" placeholder="Rua Brasil" title="Street">
+                </div>
+
+                <div class="div-input">
+                    <h2 class="h2-titulo-input">Número e complemento</h2>
+                    <input type="text" id="inputNumero" class="input-texto-order" placeholder="802, casa" title="Number">
+                </div>
+
+                <button class="botao-prosseguir" title="Next" onclick="prosseguirPedido()">PROSSEGUIR</button>
+                
+            </div>
+
+        </div>
+
+    </body>
+
+</html>
