@@ -44,18 +44,27 @@ function imprimirCart(retorno) {
     var length = Object.keys(retorno).length;
     var content = "";
 
-    console.log("length retorno: "+length);
+    var cartItems = JSON.parse(localStorage.getItem("cartProducts"));
+    var cartLenght = Object.keys(cartItems).length;
 
     for (var i = 0; i < length-1; i++) {
-        content = '<div class="div-produto-cart">';
+        content = '<div class="div-produto-cart" id="'+retorno[i].id+'">';
         content += '<img class="imagem-produto-cart" src="../'+retorno[i].foto+'">';
         content += '<h1 class="titulo-produto-cart">'+retorno[i].nome+'</h1>';
         content += '<p class="p-quantidade-produto-cart">Quantidade:</p>';
         content += '<div class="div-quantidade">';
         content += '<img src="../public/icons/black_minus_icon.png" class="quantidade-icon" style="margin-right: 0.3rem;" onclick="diminuirQuantidade(this.id)" id="'+retorno[i].id+'" title="Decrease quantity">';
-        content += '<input type="text" class="input-quantidade-produto-cart" value="1" id="inputQuantidade'+retorno[i].id+'">';
+
+        var quantityValue;
+        for (var j = 0; j < cartLenght; j++) {
+            if (String(retorno[i].id) === String(cartItems[j].id)) {
+                quantityValue = cartItems[j].quantidade;
+            }
+        }
+        content += '<input type="text" class="input-quantidade-produto-cart" value="'+quantityValue+'" id="inputQuantidade'+retorno[i].id+'" readonly="true">';
+
         content += '<img src="../public/icons/add_icon.png" class="quantidade-icon" style="margin-left: 0.3rem;" onclick="aumentarQuantidade(this.id)" id="'+retorno[i].id+'" title="Increase quantity">';
-        content += '<p class="p-remover-produto-cart" id="removerProdutoCart'+retorno[i].id+'" onclick="removerProdutoCart(this.id)" title="Remove '+retorno[i].nome+ ' from cart">Remover do carrinho</p>';
+        content += '<p class="p-remover-produto-cart" id="removerProdutoCart'+retorno[i].id+'" onclick="removerProdutoCart(this.id)" title="Remove '+retorno[i].nome+ ' from cart" value="'+retorno[i].id+'">Remover do carrinho</p>';
         content += '</div>';
         content += '</div>';
         $(".div-cart").append(content);
@@ -63,7 +72,7 @@ function imprimirCart(retorno) {
         console.log("imprimiu um produto")
     }
 
-    content += '<button class="botao-comprar" title="Buy">COMPRAR</button>';
+    content += '<button class="botao-comprar" title="Buy" onclick="comprarCarrinho()">COMPRAR</button>';
 
     $(".div-cart").append(content);
 
@@ -73,17 +82,43 @@ function imprimirCart(retorno) {
 
 function aumentarQuantidade(id) {
     var quantidadeValue = document.getElementById("inputQuantidade"+id).value;
-    $(".input-quantidade-produto-cart").val(parseInt(quantidadeValue) + 1);
+    $("#inputQuantidade"+id).val(parseInt(quantidadeValue) + 1);
+
+    var cartArray = JSON.parse(localStorage.getItem("cartProducts"));
+    var lengthCart = Object.keys(cartArray).length;
+
+    for (var i = 0; i < lengthCart; i++) {
+        if (String(id) === String(cartArray[i].id)) {
+            quantidadeValue = document.getElementById("inputQuantidade"+id).value;
+            cartArray[i].quantidade = quantidadeValue;
+            console.log("aumentou a quantidade no localStorage")
+        }
+    }
+
+    localStorage.setItem("cartProducts", JSON.stringify(cartArray))
 }
 
 function diminuirQuantidade(id) {
     var quantidadeValue = document.getElementById("inputQuantidade"+id).value;
     if (quantidadeValue > 1) {
-        $(".input-quantidade-produto-cart").val(parseInt(quantidadeValue) - 1);
+        $("#inputQuantidade"+id).val(parseInt(quantidadeValue) - 1);
     }
 }
 
-function removerProdutoCart() {
+function removerProdutoCart(clickId) {
+
+    var getValue = document.getElementById(clickId).getAttribute("value");
+    
+    var cartArray = JSON.parse(localStorage.getItem("cartProducts"));
+    var lengthCart = Object.keys(cartArray).length;
+
+    for (var i = 0; i < lengthCart-1; i++) {
+        if (String(getValue) === String(cartArray[i].id)) {
+            cartArray.splice(i, 1);
+        }
+    }
+
+    localStorage.setItem("cartProducts", JSON.stringify(cartArray))
 
 }
 
@@ -92,4 +127,8 @@ function clearCart() {
     $(".div-cart").html("");
     var content = '<a href="../"><p class="p-voltar-shop">Ver mais produtos</p></a>';
     $(".div-cart").append(content)
+}
+
+function comprarCarrinho() {
+    window.location.href = "../html/order.html";
 }

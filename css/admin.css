@@ -1,6 +1,7 @@
 .div-container {
     width: 100%;
-    height: 56rem;
+    height: 100%;
+    padding-top: 8rem;
     display: -webkit-flex;
     display: flex;
     -webkit-align-items: center;
