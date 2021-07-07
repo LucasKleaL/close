@@ -45,16 +45,25 @@ function listarPedidos(retorno) {
                 content += ", ";
             }
         }
-        content += '</p>'
+        content += '</p>';
 
-        content += '<p class="p-atributo-pedido">Quantidade dos produtos: '
+        content += '<p class="p-atributo-pedido">Quantidade dos produtos: ';
         for (var y = 0; y < lengthProdutos; y++) {
             content += produtos[y].quantidade;
             if (y != lengthProdutos-1) {
                 content += ", ";
             }
         }
-        content += '</p>'
+        content += '</p>';
+
+        content += '<p class="p-atributo-pedido">Tamanho dos produtos: ';
+        for (var w = 0; w < lengthProdutos; w++) {
+            content += produtos[w].tamanho;
+            if (w != lengthProdutos-1) {
+                content += ", ";
+            }
+        }
+        content += '</p>';
         
         content += '<p class="p-atributo-pedido">Nome do cliente: '+retorno[i].nome_cliente+'</p>';
 
@@ -64,10 +73,10 @@ function listarPedidos(retorno) {
 
         var pago;
         if (retorno[i].pedido_pago === 1) {
-            pago = "True"
+            pago = "True";
         }
         else {
-            pago = "False"
+            pago = "False";
         }
         content += '<p class="p-atributo-pedido">Pedido pago: '+pago+'</p>';
         
@@ -85,7 +94,7 @@ function listarPedidos(retorno) {
             entregue = "True";
         }
         else {
-            entregue = "False"
+            entregue = "False";
         }
         content += '<p class="p-atributo-pedido">Pedido entregue: '+entregue+'</p>';
 

@@ -71,6 +71,21 @@ function imprimirProduto(retorno) {
 function chamarCompra(id) {
 
     var cart;
+    var tamanho;
+    var auxTamanho = $(".select-tamanho").val();
+
+    if (auxTamanho === "small (P)") {
+        tamanho = "P";
+    }
+    else if (auxTamanho === "medium (M)") {
+        tamanho = "M";
+    }
+    else if (auxTamanho === "large (G)") {
+        tamanho = "G";
+    }
+    else if (auxTamanho === "xlarge (GG)") {
+        tamanho = "GG";
+    }
 
     if (localStorage.hasOwnProperty("cartProducts")) {
         cart = JSON.parse(localStorage.getItem("cartProducts"))
@@ -81,8 +96,6 @@ function chamarCompra(id) {
 
     for (var i = 0; i < cart.length; i++) {
         var productIdCart = cart[i].id;
-        console.log("cart: "+cart)
-        console.log("productIdCart "+productIdCart);
         if (productIdCart === id) {
             found = true;
         }
@@ -96,7 +109,9 @@ function chamarCompra(id) {
     }
     else {
         cart.push({id: id,
-        quantidade: 1});
+        quantidade: 1,
+        tamanho: tamanho
+        });
         
         localStorage.setItem("cartProducts", JSON.stringify(cart))
         
