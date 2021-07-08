@@ -23,7 +23,6 @@ function ajaxBuscarProduto() {
         success: function (retorno) {
             dados = retorno;
             imprimirProduto(retorno);
-            //console.log(dados)
             console.log("ajax enviado com sucesso")
         },
         error: function () {
@@ -110,7 +109,8 @@ function chamarCompra(id) {
     else {
         cart.push({id: id,
         quantidade: 1,
-        tamanho: tamanho
+        tamanho: tamanho,
+        preco: dados[0].preco
         });
         
         localStorage.setItem("cartProducts", JSON.stringify(cart))

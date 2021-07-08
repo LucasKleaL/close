@@ -32,11 +32,18 @@ function listarPedidos(retorno) {
     for (var i = 0; i < length - 1; i++) {
 
         var produtos = JSON.parse(retorno[i].id_produtos);
+        var precoTotal = 0;
 
         var lengthProdutos = Object.keys(produtos).length;
 
         content += '<div class="div-pedido">';
         content += '<p class="p-atributo-pedido">ID do pedido: '+retorno[i].id+'</p>';
+
+        for (var l = 0; l < lengthProdutos; l++) { //responsavel por somar o preco de cada item e obter o valor total da compra
+            precoTotal += parseFloat(produtos[l].preco);
+        }
+
+        content += '<p class="p-atributo-pedido">Preço total do pedido: R$ '+precoTotal+'</p>'
 
         content += '<p class="p-atributo-pedido">ID dos produtos: ';
         for (var j = 0; j < lengthProdutos; j++) {
@@ -107,6 +114,8 @@ function listarPedidos(retorno) {
         }
         content += '<p class="p-atributo-pedido">Pedido finalizado: '+finalizado+'</p>';
 
+        content += '<p class="p-link-pedido" id="'+retorno[i].id+'" onclick="abrirDetalhes(this.id)">Mais detalhes</p>';
+
         content += '</div>';
    
     }
@@ -115,4 +124,8 @@ function listarPedidos(retorno) {
 
     $("#divInterna").append(content);
 
-}      
+}
+
+function abrirDetalhes(clickId) {
+    localStorage.setItem("idDetalhePedido", clickId)
+}
