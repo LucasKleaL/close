@@ -12,6 +12,7 @@ $retorno['id'] = "";
 if(($resultado) && ($resultado -> num_rows) != 0){
     while($row_pedido = mysqli_fetch_assoc($resultado)){
         $pedido['id'] = $row_pedido['id'];
+        $pedido['protocolo'] = $row_pedido['protocolo'];
         $pedido['id_produtos'] = $row_pedido['id_produtos'];
         $pedido['nome_cliente'] = $row_pedido['nome_cliente'];
         $pedido['bairro_cliente'] = $row_pedido['bairro_cliente'];

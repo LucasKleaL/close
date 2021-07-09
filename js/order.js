@@ -1,3 +1,8 @@
+
+var dadosOrders;
+var dadosProducts;
+
+var protocoloHexa;
 var idProdutos;
 var nomeCliente;
 var bairroCliente;
@@ -8,11 +13,11 @@ var federacaoCliente;
 
 var min = 10000000;
 var max = 1000000000;
-var protocoloHexa;
 
 $(document).ready(function() {
 
-    //
+    recoverOrdersDatabase();
+    recoverProducts();
 
 });
 
@@ -36,6 +41,8 @@ function prosseguirPedido() {
     console.log("numero protocolo hash "+protocoloHexa)
 
     ajaxEnviarPedido();
+
+    chamarPagamento();
 
 }
 
@@ -83,10 +90,6 @@ function ajaxEnviarPedido() {
         success: function () {
             orderSendSucess()
             console.log("ajax enviado com sucesso")
-        },
-        error: function () {
-            orderSendFailure()
-            console.log("Erro ao recuperar produtos")
         }
     })
 
@@ -118,5 +121,78 @@ function orderSendFailure() {
 }
 
 function chamarPagamento() {
-    //
+
+    recoverOrdersDatabase();
+    recoverProducts();
+
+    var ordersLenght = Object.keys(dadosOrders).length;
+    var productsLenght = Object.keys(dadosProducts).length;
+    
+    for (var i = 0; i < ordersLenght-1; i++) {
+        if (dadosOrders[i].protocolo === protocoloHexa) {
+
+            var idProdutosInOrder = dadosOrders[i].id_produtos;
+            var nomeProdutosOrder;
+
+            for (var y = 0; y < productsLenght-1; y++) {
+                if (idProdutosInOrder[i].id === dadosProducts[y].id) {
+                    nomeProdutosOrder.push(dadosProducts[y].nome);
+                }
+            }
+
+            var idProdutosOrder = dadosOrders[i].id_produtos;
+            var protocoloOrder = dadosOrders[i].protocolo;
+            var nomeClienteOrder = dadosOrders[i].nome_cliente;
+
+            console.log("antes do ajax de pagamento")
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    nomeProdutosOrder: nomeProdutosOrder,
+                    idProdutosOrder: idProdutosOrder,
+                    protocoloOrder: protocoloOrder,
+                    nomeClienteOrder: nomeClienteOrder
+                },
+                url: '../php/sendPayment.php',
+                success: function () {
+                    console.log("ajax de payment enviado com sucesso")
+                },
+                error: function () {
+                    console.log("Erro ao enviar ajax payment")
+                }
+            })
+
+        }
+    }
+
+}
+
+function recoverOrdersDatabase() {
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '../php/recoverOrders.php',
+        success: function (retorno) {
+            dadosOrders = retorno;
+        },
+        error: function () {
+            alert("Erro ao recuperar orders");
+        }
+    })
+}
+
+function recoverProducts() {
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '../php/recoverAllProducts.php',
+        success: function (retorno) {
+            dadosProducts = retorno;
+        },
+        error: function () {
+            alert("Erro ao recuperar produtos");
+        }
+    })
 }
