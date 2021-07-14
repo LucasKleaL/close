@@ -42,7 +42,6 @@ function prosseguirPedido() {
 
     ajaxEnviarPedido();
 
-    chamarPagamento();
 
 }
 
@@ -87,9 +86,14 @@ function ajaxEnviarPedido() {
             federacaoCliente: federacaoCliente,
         },
         url: '../php/sendOrder.php',
-        success: function () {
-            orderSendSucess()
+        success: function (retorno) {
             console.log("ajax enviado com sucesso")
+            if (retorno.status === 'success') {
+                orderSendSucess();
+            }
+            else if (retorno.status === 'error') {
+                orderSendFailure();
+            }
         }
     })
 
@@ -97,10 +101,12 @@ function ajaxEnviarPedido() {
 
 function orderSendSucess() {
 
+    localStorage.setItem("lastOrderProtocol", protocoloHexa);
+
     $("#tituloModal").text("Pedido efetuado com sucesso!");
-    $("#textoModal").text("Por favor prossiga com o pagamento para finalizar seu pedido!");
+    $("#textoModal").text("Por favor prossiga para escolher seu método de pagamento e finalizar seu pedido!");
     $("#protocoloModal").text("Este é o protocolo do seu pedido: "+protocoloHexa)
-    $("#botaoModal").text("PAGAR");
+    $("#botaoModal").text("PROSSEGUIR");
     $("#botaoModal").attr("onclick", "chamarPagamento()");
     $("#botaoModal").attr("data-dismiss", "");
 
@@ -122,6 +128,9 @@ function orderSendFailure() {
 
 function chamarPagamento() {
 
+    window.location.href = "../html/chosePayment.html";
+
+    /*
     recoverOrdersDatabase();
     recoverProducts();
 
@@ -146,6 +155,7 @@ function chamarPagamento() {
 
             console.log("antes do ajax de pagamento")
 
+            
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
@@ -163,9 +173,11 @@ function chamarPagamento() {
                     console.log("Erro ao enviar ajax payment")
                 }
             })
+            
 
         }
     }
+    */
 
 }
 

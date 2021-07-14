@@ -14,11 +14,13 @@ $federacaoCliente = $_POST['federacaoCliente'];
     $resultado = mysqli_query($link, "INSERT INTO pedidos (id_produtos, protocolo, nome_cliente, bairro_cliente, rua_cliente, numero_complemento_cliente, cidade_cliente, federacao_cliente) 
     VALUES ('$idProdutos', '$protocolo', '$nomeCliente', '$bairroCliente', '$ruaCliente', '$numeroCliente', '$cidadeCliente', '$federacaoCliente')");
 
-    if ($resultado == true) {
-        echo "Pedido enviado para o banco de dados com sucesso";
+    if ($resultado) {
+        $response_array['status'] = 'success';
     }
     else {
-        echo "Algo de errado aconteceu, tente novamente";
+        $response_array['status'] = 'error';
     }
+
+    echo json_encode($response_array);
 
 ?>

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd75f909fc4676c4c732f5929ddd62f80
+class ComposerStaticInit3f3880ff8665ac2879339c1fdd5cf591
 {
     public static $prefixLengthsPsr4 = array (
         'P' => 
@@ -73,8 +73,8 @@ class ComposerStaticInitd75f909fc4676c4c732f5929ddd62f80
         array (
             0 => __DIR__ . '/..' . '/doctrine/reflection/lib/Doctrine/Common',
             1 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
-            2 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
-            3 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
+            2 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
+            3 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
         ),
     );
 
@@ -85,9 +85,9 @@ class ComposerStaticInitd75f909fc4676c4c732f5929ddd62f80
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd75f909fc4676c4c732f5929ddd62f80::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd75f909fc4676c4c732f5929ddd62f80::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd75f909fc4676c4c732f5929ddd62f80::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3f3880ff8665ac2879339c1fdd5cf591::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3f3880ff8665ac2879339c1fdd5cf591::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3f3880ff8665ac2879339c1fdd5cf591::$classMap;
 
         }, null, ClassLoader::class);
     }

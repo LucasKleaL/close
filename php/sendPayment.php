@@ -2,9 +2,9 @@
 
     $acess_token = "TEST-8729600497268434-070817-1b735339a4bf0f7a0847ac10d81456c2-786312623";
 
-    require __DIR__  . '/vendor/autoload.php';
+    include("vendor/autoload.php");
 
-    //MercadoPago\SDK::setAccessToken("TEST-8729600497268434-070817-1b735339a4bf0f7a0847ac10d81456c2-786312623");
+    MercadoPago\SDK::setAccessToken($acess_token);
     
     /*$nomeProdutosOrder = $_POST['nomeProdutosOrder'];
     $idProdutosOrder = $_POST['idProdutosOrder'];

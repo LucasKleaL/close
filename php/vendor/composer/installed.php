@@ -1,22 +1,22 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'dev-main',
-        'version' => 'dev-main',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'c38890fdb76b6ae2a229733276eb9cb0999c1b29',
+        'reference' => NULL,
         'name' => '__root__',
         'dev' => true,
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'c38890fdb76b6ae2a229733276eb9cb0999c1b29',
+            'reference' => NULL,
             'dev_requirement' => false,
         ),
         'doctrine/annotations' => array(
@@ -29,12 +29,12 @@
             'dev_requirement' => false,
         ),
         'doctrine/cache' => array(
-            'pretty_version' => '1.11.3',
-            'version' => '1.11.3.0',
+            'pretty_version' => '1.12.0',
+            'version' => '1.12.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../doctrine/cache',
             'aliases' => array(),
-            'reference' => '3bb5588cec00a0268829cc4a518490df6741af9d',
+            'reference' => '92032beb419568d3b61ae645f48bbb693cc7e00e',
             'dev_requirement' => false,
         ),
         'doctrine/collections' => array(
