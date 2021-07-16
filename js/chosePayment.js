@@ -1,13 +1,36 @@
 var dadosOrdersDefault;
 var dadosProductsDefault;
 var lastOrderProtocol = localStorage.getItem("lastOrderProtocol");
+var precoTotal = 0;
 
 $(document).ready(function() {
+
+    paypalRender();
 
     recoverOrdersDatabase();
     recoverProducts();
 
 });
+
+function paypalRender() {
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: precoTotal
+                    },
+                    currency: 'BRL'
+                }]
+            })
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert("paypal transaction complete by "+details.payer.name.given_name);
+            })
+        }
+    }).render(".div-paypal");
+}
 
 function printOrderDetails(dadosOrders, dadosProducts) {
 
@@ -20,7 +43,7 @@ function printOrderDetails(dadosOrders, dadosProducts) {
             var content = "";
             var productsOnCart = JSON.parse(dadosOrders[i].id_produtos);
             var productsOnCartLengh = Object.keys(productsOnCart).length;
-            var precoTotal = 0;
+            
 
             content += '<h2 class="h2-order-detail">ID do pedido (protocolo):</h2>';
             content += '<p class="p-order-detail">'+dadosOrders[i].protocolo+'</p>';
