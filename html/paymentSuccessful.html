@@ -1,0 +1,64 @@
+<html>
+
+    <head>
+        <title>CLOSE! | payment</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/global.css">
+        <link rel="stylesheet" type="text/css" href="../css/paymentSuccessful.css">
+        <link rel="shortcut icon" href="../public/img/close_logo.png">
+        <script type="text/javascript" src="../js/jquery-3.5.1.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="https://www.paypal.com/sdk/js?client-id=ASdPL_RLAKD8th4TfIxeL0EKzpuvJPuTZ3Ymfxq0jPHRN2FsaUD3rnNLUieKzPlHlwcnF6rZl08Ac5Ca&currency=BRL"></script>
+        <script type="text/javascript" src="../js/paymentSuccessful.js"></script>
+    </head>
+
+    <body>
+
+        <div class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="tituloModal">Pedido efetuado com sucesso!</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                <p id="textoModal">Por favor prossiga com o pagamento para finalizar seu pedido!</p>
+                                <p id="protocoloModal"></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="botaoModal" class="btn btn-secondary" data-dismiss="">PAGAR</button>
+                            </div>
+                    </div>
+                </div>
+        </div>
+
+        <header>
+            <div>
+                <a href="../"><img src="../public/img/close_logo_escrito.png" alt="CLOSE!" class="logo-header"></a>
+                <h1 class="opcoes-header">About</h1>
+                <a href="../cart/"><h1 class="opcoes-header">Cart</h1></a>
+                <h1 class="opcoes-header">Social medias</h1>
+                <a href="../"><h1 class="opcoes-header">Shop</h1></a>
+            </div>
+        </header>
+
+        <body>
+
+            <div class="div-container">
+
+                <div class="div-texto">
+                    <h1 class="h1-titulo">Seu pedido foi pago com sucesso!</h1>
+                    <h2 class="h2-subtitulo">Agora seu pedido será enviado. Você receberá atualizações sobre o status no email indicado no momento da compra.</h2>
+                </div>
+            
+            </div>
+
+        </body>
+
+</html>

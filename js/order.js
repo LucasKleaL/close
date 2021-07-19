@@ -5,6 +5,7 @@ var dadosProducts;
 var protocoloHexa;
 var idProdutos;
 var nomeCliente;
+var emailCliente;
 var bairroCliente;
 var ruaCliente;
 var numeroCliente;
@@ -27,6 +28,7 @@ function prosseguirPedido() {
 
     idProdutos = localStorage.getItem("cartProducts");
     nomeCliente = $("#inputNome").val();
+    emailCliente = $("#inputEmail").val();
     bairroCliente = $("#inputBairro").val();
     ruaCliente = $("#inputRua").val();
     numeroCliente = $("#inputNumero").val();
@@ -76,9 +78,10 @@ function ajaxEnviarPedido() {
         type: 'POST',
         dataType: 'json',
         data: {
-            idProdutos: idProdutos,
             protocolo: protocoloHexa,
+            idProdutos: idProdutos,
             nomeCliente: nomeCliente,
+            emailCliente: emailCliente,
             bairroCliente: bairroCliente,
             ruaCliente: ruaCliente,
             numeroCliente: numeroCliente,

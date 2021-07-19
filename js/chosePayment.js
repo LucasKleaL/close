@@ -18,16 +18,33 @@ function paypalRender() {
             return actions.order.create({
                 purchase_units: [{
                     amount: {
-                        value: precoTotal
-                    },
-                    currency: 'BRL'
+                        value: precoTotal,
+                        currency_code: 'BRL'
+                    }
                 }]
             })
         },
         onApprove: function(data, actions) {
             return actions.order.capture().then(function(details) {
-                alert("paypal transaction complete by "+details.payer.name.given_name);
+                localStorage.setItem("paymentApprovedProtocol", lastOrderProtocol)
+                window.location.href="../html/paymentSuccessful.html";
             })
+        },
+        onCancel: function() {
+            $("#tituloModal").text("O pagamento Paypal foi cancelado");
+            $("#textoModal").text("Você pode reiniciar seu pagamento.");
+            $("#botaoModal").text("FECHAR");
+            $("#botaoModal").attr("onclick", "");
+            $("#botaoModal").attr("data-dismiss", "modal");
+            $(".modal").modal("show");
+        },
+        onError: function() {
+            $("#tituloModal").text("Erro ao processar pagamento Paypal");
+            $("#textoModal").text("Por favor atualize a página e tente novamente. Você também pode mudar a forma de pagamento.");
+            $("#botaoModal").text("FECHAR");
+            $("#botaoModal").attr("onclick", "");
+            $("#botaoModal").attr("data-dismiss", "modal");
+            $(".modal").modal("show");
         }
     }).render(".div-paypal");
 }
