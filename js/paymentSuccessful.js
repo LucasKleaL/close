@@ -5,7 +5,7 @@ var emailDestinatario;
 $(document).ready(function() {
 
     recoverOrdersDatabase();
-    
+    alterPaymentMetodPaypalAjax();
 
 });
 
@@ -26,7 +26,7 @@ function getEmailFromOrder(retorno) {
             console.log("email do banco "+retorno[i].email_cliente)
             emailDestinatario = String(retorno[i].email_cliente);
             console.log("emailDestinatario "+emailDestinatario)
-            ajaxSendMail(emailDestinatario);
+            //ajaxSendMail(emailDestinatario);
         } 
 
     }
@@ -72,6 +72,23 @@ function recoverOrdersDatabase() {
                 console.log("ajax recover orders database error");
             }
             
+        },
+        error: function () {
+            alert("Erro ao recuperar orders");
+        }
+    })
+}
+
+function alterPaymentMetodPaypalAjax() {
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            orderProtocol: localStorage.getItem("paymentApprovedProtocol")
+        },
+        url: '../php/alterPaymentPaypal.php',
+        success: function (retorno) {
+            alert("alterPayment Successful");
         },
         error: function () {
             alert("Erro ao recuperar orders");

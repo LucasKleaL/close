@@ -26,8 +26,9 @@ function paypalRender() {
         },
         onApprove: function(data, actions) {
             return actions.order.capture().then(function(details) {
-                localStorage.setItem("paymentApprovedProtocol", lastOrderProtocol)
+                localStorage.setItem("paymentApprovedProtocol", lastOrderProtocol);
                 window.location.href="../html/paymentSuccessful.html";
+                alterPaymentMetodPaypalAjax();
             })
         },
         onCancel: function() {
@@ -87,7 +88,7 @@ function printOrderDetails(dadosOrders, dadosProducts) {
 
                     if (String(productsOnCart[z].id) === String(dadosProducts[p].id)) {
                         content += '<p class="p-product-name">'+dadosProducts[p].nome+' x'+productsOnCart[z].quantidade+'</p>';
-                        content += '<p class="p-product-price">Preço: R$ '+dadosProducts[p].preco+'</p>'
+                        content += '<p class="p-product-price">Preço: R$ '+dadosProducts[p].preco+'</p>';
                     }
 
                 }
@@ -100,6 +101,23 @@ function printOrderDetails(dadosOrders, dadosProducts) {
 
     }
 
+}
+
+function alterPaymentMetodPaypalAjax() {
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            orderProtocol: lastOrderProtocol
+        },
+        url: '../php/alterPaymentPaypal.php',
+        success: function (retorno) {
+            alert("alterPayment Successful");
+        },
+        error: function () {
+            alert("Erro ao recuperar orders");
+        }
+    })
 }
 
 function recoverOrdersDatabase() {

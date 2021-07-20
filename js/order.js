@@ -12,6 +12,8 @@ var numeroCliente;
 var cidadeCliente;
 var federacaoCliente;
 
+var prosseguir = false;
+
 var min = 10000000;
 var max = 1000000000;
 
@@ -24,9 +26,10 @@ $(document).ready(function() {
 
 function prosseguirPedido() {
 
-    //var numeroProtocolo = getRandomInt(min, max);
+    var invalidInputText = "";
 
     idProdutos = localStorage.getItem("cartProducts");
+
     nomeCliente = $("#inputNome").val();
     emailCliente = $("#inputEmail").val();
     bairroCliente = $("#inputBairro").val();
@@ -35,16 +38,46 @@ function prosseguirPedido() {
     cidadeCliente = $("#inputCidade").val();
     federacaoCliente = $("#inputFederacao").val();
 
-    console.log("textOrder: "+getTextOrder())
+    var array = [nomeCliente, emailCliente, bairroCliente, ruaCliente, numeroCliente, cidadeCliente];
+    var arrayMessages = [
+        "Por favor insira seu nome completo.",
+        "Por favor insira um email válido.",
+        "Por favor insira seu bairro.",
+        "Por favor insira sua rua.",
+        "Por favor insira seu número e complemento.",
+        "Por favor insira sua cidade."
+    ];
+    var arrayDivs = [
+        "divNome",
+        "divEmail",
+        "divBairro",
+        "divRua",
+        "divNumero",
+        "divCidade",
+    ]
 
-    var sha256 = sjcl.hash.sha1.hash(getTextOrder());
-    protocoloHexa = sjcl.codec.base32.fromBits(sha256);
+    for (var i = 0; i < 5; i++) {
+        if (array[i] != "") {
+            prosseguir = true;
+        }
+        else {
+            prosseguir = false;
+            invalidInputText += '<p class="invalid-input-text">'+arrayMessages[i]+'</p>';
+            $("#"+arrayDivs[i]).append(invalidInputText);
+            $("#"+arrayDivs[i]).removeAttr('style');
+            invalidInputText = "";
+        }
+    }
+
+    if (prosseguir === true) {
+        var sha256 = sjcl.hash.sha1.hash(getTextOrder());
+        protocoloHexa = sjcl.codec.base32.fromBits(sha256);
+        ajaxEnviarPedido();
+    }
+    else {
+        //mensagem pedindo para completar os campos
+    }
     
-    console.log("numero protocolo hash "+protocoloHexa)
-
-    ajaxEnviarPedido();
-
-
 }
 
 function getTextOrder() { //responsavel por gerar uma string com base nos atributos do pedido para ser cifrada posteriormente em forma de hash
