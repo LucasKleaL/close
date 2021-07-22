@@ -12,6 +12,22 @@ var numeroCliente;
 var cidadeCliente;
 var federacaoCliente;
 
+var nomeInvalido = false;
+var emailInvalido = false;
+var bairroInvalido = false;
+var ruaInvalida = false;
+var numeroInvalido = false;
+var cidadeInvalida = false;
+
+var variaveisInvalidas = [
+    nomeInvalido,
+    emailInvalido,
+    bairroInvalido,
+    ruaInvalida,
+    numeroInvalido,
+    cidadeInvalida
+];
+
 var prosseguir = false;
 
 var min = 10000000;
@@ -54,28 +70,53 @@ function prosseguirPedido() {
         "divRua",
         "divNumero",
         "divCidade",
-    ]
+    ];
+    
 
     for (var i = 0; i < 5; i++) {
         if (array[i] != "") {
             prosseguir = true;
+
+            if (variaveisInvalidas[i] === true) {
+                $("#"+arrayDivs[i]+"Invalid").hide();
+                $("#"+arrayDivs[i]).attr("style", "padding-bottom: 2rem;");
+            }
+            
         }
         else {
+
             prosseguir = false;
-            invalidInputText += '<p class="invalid-input-text">'+arrayMessages[i]+'</p>';
-            $("#"+arrayDivs[i]).append(invalidInputText);
-            $("#"+arrayDivs[i]).removeAttr('style');
-            invalidInputText = "";
+
+            if (variaveisInvalidas[i] === false) {
+                variaveisInvalidas[i] = true;
+                invalidInputText += '<p class="invalid-input-text" id="'+arrayDivs[i]+'Invalid">'+arrayMessages[i]+'</p>';
+                $("#"+arrayDivs[i]).append(invalidInputText);
+                $("#"+arrayDivs[i]).removeAttr('style');
+                invalidInputText = "";
+            }
+            
+            //break;
         }
     }
 
     if (prosseguir === true) {
+        $(".invalid-input-text").hide();
+        $("#divNome").attr("style", "padding-bottom: 2rem;");
+        $("#divEmail").attr("style", "padding-bottom: 2rem;");
+        $("#divBairro").attr("style", "padding-bottom: 2rem;");
+        $("#divRua").attr("style", "padding-bottom: 2rem;");
         var sha256 = sjcl.hash.sha1.hash(getTextOrder());
         protocoloHexa = sjcl.codec.base32.fromBits(sha256);
         ajaxEnviarPedido();
     }
     else {
-        //mensagem pedindo para completar os campos
+        $("#tituloModal").text("Formulário inválido");
+        $("#textoModal").text("Por favor preencha os campos do pedido corretamente.");
+        $("#botaoModal").text("CONTINUAR");
+        $("#botaoModal").attr("onclick", "");
+        $("#botaoModal").attr("data-dismiss", "modal");
+
+        $(".modal").modal('show');
     }
     
 }

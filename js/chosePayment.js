@@ -33,7 +33,7 @@ function paypalRender() {
         },
         onCancel: function() {
             $("#tituloModal").text("O pagamento Paypal foi cancelado");
-            $("#textoModal").text("Você pode reiniciar seu pagamento.");
+            $("#textoModal").text("Você pode reiniciar seu pagamento. Se algum erro ocorreu por favor atualize a página e tente novamente. Se o problema persistir tente mais tarde, o serviço de pagamento talvez esteja instável.");
             $("#botaoModal").text("FECHAR");
             $("#botaoModal").attr("onclick", "");
             $("#botaoModal").attr("data-dismiss", "modal");
