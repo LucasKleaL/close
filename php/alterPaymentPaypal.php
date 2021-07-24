@@ -4,10 +4,11 @@ require "config.php";
 
     $paymentMetod = 'Paypal';
     $orderProtocol = $_POST['orderProtocol'];
+    $valorPedido = $_POST['valorPedido'];
 
-    echo "orderProtocol ".$orderProtocol;
+    echo "valorPedido ".$valorPedido;
 
-    $resultado = mysqli_query($link, "UPDATE pedidos SET metodo_pagamento = '$paymentMetod', pedido_pago = 1 WHERE protocolo = '$orderProtocol'");
+    $resultado = mysqli_query($link, "UPDATE pedidos SET metodo_pagamento = '$paymentMetod', valor_total_pedido = '$valorPedido', pedido_pago = 1 WHERE protocolo = '$orderProtocol'");
 
     if ($resultado) {
         $response_array['status'] = 'success';

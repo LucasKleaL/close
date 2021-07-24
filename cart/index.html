@@ -31,11 +31,35 @@
         <div class="div-container">
             <div class="div-cart">
 
-                <div class="div-esvaziar-cart" onclick="clearCart()">
-                    <img src="../public/icons/recycle_bin_icon.png" class="img-recycle-bin">
-                    <p class="p-esvaziar-cart" title="Clear cart">Esvaziar carrinho</p>
+                <div class="div-right-icons">
+
+                    <div class="div-esvaziar-cart" onclick="clearCart()">
+                        <img src="../public/icons/recycle_bin_icon.png" class="img-recycle-bin">
+                        <p class="p-esvaziar-cart" title="Clear cart">Esvaziar carrinho</p>
+                    </div>
+    
+                    <div class="div-calcular-frete" onclick="chamarCalcularFrete()">
+                        <img src="../public/icons/truck_icon.png" class="img-frete-truck" title="">
+                        <p class="p-calcular-frete">Calcular frete</p>
+                    </div>
+
+                    <div class="div-input-frete" id="divInputFrete" style="display: none;">
+                        <h2 class="h2-cep-input">CEP:</h2>
+                        <div>
+                            <input type="text" class="input-cep-frete" id="inputCepDestino" placeholder="83730000">
+                            <select id="selectServicoFrete" class="select-servico-frete">
+                                <option>SEDEX</option>
+                                <option>PAC</option>
+                            </select>
+                        </div>
+                        
+                        <button class="botao-calcular-frete" onclick="ajaxCalcularFrete()">CALCULAR</button>
+                    </div>
+
                 </div>
+
                 
+
                 <!--
                 <div class="div-produto-cart">
 

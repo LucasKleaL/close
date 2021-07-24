@@ -132,3 +132,55 @@ function clearCart() {
 function comprarCarrinho() {
     window.location.href = "../html/order.html";
 }
+
+function ajaxCalcularFrete() {
+    
+    var cepDestino = $("#inputCepDestino").val();
+    var servico = $("#selectServicoFrete").val();
+
+    if (cepDestino != "") {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                cepDestino: cepDestino,
+                servico: servico
+            },
+            url: '../php/sendCorreiosAPI.php',
+            success: function (retorno) {
+                if (retorno.status === "success") {
+                    var content = '<p class="p-retorno-frete">Preço: R$ <b>'+retorno.preco+'</b></p>';
+                    content += '<p class="p-retorno-frete">Prazo de entrega: <b>'+retorno.prazo+'</b> dias úteis</p>';
+                    $("#divInputFrete").append(content);
+                } 
+                else if (retorno.status === "error"){
+                    var content = '<p class="p-retorno-frete">Preço: R$ <b>'+retorno.preco+'</b></p>';
+                    content += '<p class="p-retorno-frete">Prazo de entrega: <b>'+retorno.prazo+'</b> dias úteis</p>';
+                    $("#divInputFrete").append(content);
+                }
+            },
+            error: function () {
+                console.log("erro ao enviar ajax correios api")
+            }
+        })
+    }
+
+}
+
+function chamarCalcularFrete() {
+    //window.location.href = "../html/calcularFreteCart.html";
+
+    console.log("chamou o frete")
+
+    var display = document.getElementById("divInputFrete").style.display;
+
+    if (display == "none") {
+        $("#divInputFrete").attr("style", "display: block;");
+        //document.getElementById("divInputFrete").style.display = 'block';
+    }
+    else {
+        $("#divInputFrete").attr("style", "display: none;");
+        //document.getElementById("divInputFrete").style.display = 'none';
+    }
+
+}

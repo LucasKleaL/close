@@ -74,7 +74,7 @@ function recoverOrdersDatabase() {
             
         },
         error: function () {
-            alert("Erro ao recuperar orders");
+            console.log("Erro ao recuperar orders");
         }
     })
 }
@@ -84,14 +84,15 @@ function alterPaymentMetodPaypalAjax() {
         type: 'POST',
         dataType: 'json',
         data: {
-            orderProtocol: localStorage.getItem("paymentApprovedProtocol")
+            orderProtocol: localStorage.getItem("paymentApprovedProtocol"),
+            valorPedido: localStorage.getItem("precoTotalLastOrder")
         },
         url: '../php/alterPaymentPaypal.php',
         success: function (retorno) {
-            alert("alterPayment Successful");
+            console.log("alterPayment Successful");
         },
         error: function () {
-            alert("Erro ao recuperar orders");
+            console.log("alterPayment Error");
         }
     })
 }

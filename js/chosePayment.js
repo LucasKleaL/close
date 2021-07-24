@@ -70,8 +70,10 @@ function printOrderDetails(dadosOrders, dadosProducts) {
             
             for (var y = 0; y < productsOnCartLengh; y++) {
                 console.log(productsOnCart[y].preco)
-                precoTotal += parseFloat(productsOnCart[y].preco);
+                precoTotal += parseFloat(productsOnCart[y].preco) * productsOnCart[y].quantidade;
             }
+
+            localStorage.setItem("precoTotalLastOrder", precoTotal)
 
             content += '<h2 class="h2-order-detail">Valor total do pedido:</h2>';
             content += '<p class="p-order-detail">R$ '+precoTotal+'</p>';
@@ -112,10 +114,10 @@ function alterPaymentMetodPaypalAjax() {
         },
         url: '../php/alterPaymentPaypal.php',
         success: function (retorno) {
-            alert("alterPayment Successful");
+            console.log("alterPayment Successful");
         },
         error: function () {
-            alert("Erro ao recuperar orders");
+            console.log("Erro ao recuperar orders");
         }
     })
 }
@@ -129,7 +131,7 @@ function recoverOrdersDatabase() {
             dadosOrdersDefault = retorno;
         },
         error: function () {
-            alert("Erro ao recuperar orders");
+            console.log("Erro ao recuperar orders");
         }
     })
 }
@@ -144,7 +146,7 @@ function recoverProducts() {
             printOrderDetails(dadosOrdersDefault, dadosProductsDefault);
         },
         error: function () {
-            alert("Erro ao recuperar produtos");
+            console.log("Erro ao recuperar produtos");
         }
     })
 }
