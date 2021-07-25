@@ -6,14 +6,20 @@ var protocoloHexa;
 var idProdutos;
 var nomeCliente;
 var emailCliente;
+var cpfCliente
+var cepCliente;
 var bairroCliente;
 var ruaCliente;
 var numeroCliente;
 var cidadeCliente;
 var federacaoCliente;
+var splitCpf;
+var splitCep;
 
 var nomeInvalido = false;
 var emailInvalido = false;
+var cpfInvalido = false;
+var cepInvalido = false;
 var bairroInvalido = false;
 var ruaInvalida = false;
 var numeroInvalido = false;
@@ -22,6 +28,8 @@ var cidadeInvalida = false;
 var variaveisInvalidas = [
     nomeInvalido,
     emailInvalido,
+    cpfInvalido,
+    cepInvalido,
     bairroInvalido,
     ruaInvalida,
     numeroInvalido,
@@ -48,16 +56,27 @@ function prosseguirPedido() {
 
     nomeCliente = $("#inputNome").val();
     emailCliente = $("#inputEmail").val();
+
+    cpfCliente = $("#inputCpf").val();
+    splitCpf = cpfCliente.replace(".", "").replace(".", "").replace("-", "");
+    cpfCliente = splitCpf;
+
+    cepCliente = $("#inputCep").val();
+    splitCep = cepCliente.replace("-", "");
+    cepCliente = splitCep;
+
     bairroCliente = $("#inputBairro").val();
     ruaCliente = $("#inputRua").val();
     numeroCliente = $("#inputNumero").val();
     cidadeCliente = $("#inputCidade").val();
     federacaoCliente = $("#inputFederacao").val();
 
-    var array = [nomeCliente, emailCliente, bairroCliente, ruaCliente, numeroCliente, cidadeCliente];
+    var array = [nomeCliente, emailCliente, splitCpf, splitCep, bairroCliente, ruaCliente, numeroCliente, cidadeCliente];
     var arrayMessages = [
         "Por favor insira seu nome completo.",
         "Por favor insira um email válido.",
+        "Por favor insira um CPF válido.",
+        "Por favor insira um CEP válido.",
         "Por favor insira seu bairro.",
         "Por favor insira sua rua.",
         "Por favor insira seu número e complemento.",
@@ -66,6 +85,8 @@ function prosseguirPedido() {
     var arrayDivs = [
         "divNome",
         "divEmail",
+        "divCpf",
+        "divCep",
         "divBairro",
         "divRua",
         "divNumero",
@@ -73,8 +94,49 @@ function prosseguirPedido() {
     ];
     
 
-    for (var i = 0; i < 5; i++) {
-        if (array[i] != "") {
+    for (var i = 0; i < array.length; i++) {
+
+        if (i === 2) { //verificação apenas para cpf
+            if (variaveisInvalidas[i] === false && array[i].length < 11) {
+                prosseguir = false;
+                variaveisInvalidas[i] = true;
+                invalidInputText += '<p class="invalid-input-text" id="'+arrayDivs[i]+'Invalid">'+arrayMessages[i]+'</p>';
+                $("#"+arrayDivs[i]).append(invalidInputText);
+                $("#"+arrayDivs[i]).removeAttr('style');
+                invalidInputText = "";
+            }
+            else if (array[i].length === 11){
+                prosseguir = true;
+
+                if (variaveisInvalidas[i] === true) {
+                    $("#"+arrayDivs[i]+"Invalid").hide();
+                    $("#"+arrayDivs[i]).attr("style", "padding-bottom: 2rem;");
+                }
+
+            }
+
+        }
+        else if (i === 3) { //verificação apenas para cep
+            if (variaveisInvalidas[i] === false && array[i].length < 8) {
+                prosseguir = false;
+                variaveisInvalidas[i] = true;
+                invalidInputText += '<p class="invalid-input-text" id="'+arrayDivs[i]+'Invalid">'+arrayMessages[i]+'</p>';
+                $("#"+arrayDivs[i]).append(invalidInputText);
+                $("#"+arrayDivs[i]).removeAttr('style');
+                invalidInputText = "";
+            }
+            else if (array[i].length === 8) {
+                prosseguir = true;
+
+                if (variaveisInvalidas[i] === true) {
+                    $("#"+arrayDivs[i]+"Invalid").hide();
+                    $("#"+arrayDivs[i]).attr("style", "padding-bottom: 2rem;");
+                }
+
+            }
+
+        }
+        else if (array[i] != "") { //verificação geral
             prosseguir = true;
 
             if (variaveisInvalidas[i] === true) {
@@ -156,6 +218,8 @@ function ajaxEnviarPedido() {
             idProdutos: idProdutos,
             nomeCliente: nomeCliente,
             emailCliente: emailCliente,
+            cpfCliente: cpfCliente,
+            cepCliente: cepCliente,
             bairroCliente: bairroCliente,
             ruaCliente: ruaCliente,
             numeroCliente: numeroCliente,
