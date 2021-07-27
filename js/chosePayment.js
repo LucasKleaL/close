@@ -61,6 +61,8 @@ function printOrderDetails(dadosOrders, dadosProducts) {
             var content = "";
             var productsOnCart = JSON.parse(dadosOrders[i].id_produtos);
             var productsOnCartLengh = Object.keys(productsOnCart).length;
+
+            content += '<p class="p-order-detail">Enviando para o endereço: '+dadosOrders[i].rua_cliente+' '+dadosOrders[i].numero_complemento_cliente+', '+dadosOrders[i].bairro_cliente+', '+dadosOrders[i].cidade_cliente+' - '+dadosOrders[i].federacao_cliente+'</p>'
             
 
             content += '<h2 class="h2-order-detail">ID do pedido (protocolo):</h2>';

@@ -148,6 +148,7 @@ function ajaxCalcularFrete() {
             },
             url: '../php/sendCorreiosAPI.php',
             success: function (retorno) {
+                retorno = JSON.parse(retorno)
                 if (retorno.status === "success") {
                     var content = '<p class="p-retorno-frete">Preço: R$ <b>'+retorno.preco+'</b></p>';
                     content += '<p class="p-retorno-frete">Prazo de entrega: <b>'+retorno.prazo+'</b> dias úteis</p>';

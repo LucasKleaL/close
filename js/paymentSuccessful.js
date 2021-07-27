@@ -26,7 +26,7 @@ function getEmailFromOrder(retorno) {
             console.log("email do banco "+retorno[i].email_cliente)
             emailDestinatario = String(retorno[i].email_cliente);
             console.log("emailDestinatario "+emailDestinatario)
-            //ajaxSendMail(emailDestinatario);
+            ajaxSendMail(emailDestinatario);
         } 
 
     }

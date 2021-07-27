@@ -4,6 +4,26 @@
     require 'config.php';
     require 'PHPMailer/PHPMailerAutoload.php';
 
+    $result = "SELECT * FROM credentials";
+
+    $resultado = mysqli_query($link, $result);
+    $credentials['id'] = "";
+    if(($resultado) && ($resultado -> num_rows) != 0){
+        while($row_credentials = mysqli_fetch_assoc($resultado)){
+            $credentials['id'] = $row_credentials['id'];
+            $credentials['email_contato'] = $row_credentials['email_contato'];
+            $credentials['senha_contato'] = $row_credentials['senha_contato'];
+
+            array_push($produto);
+        }
+    }
+    else{
+        echo "Impossível recuperar as credenciais para o envio de email.";
+    }
+
+    $originEmail = base64_decode($credentials['email_contato']);
+    $originPassword = base64_decode($credentials['senha_contato']);
+
     $emailDestinatario = $_POST['emailDestinatario'];
 
     $tituloEmail = "Pedido Close!";
@@ -19,9 +39,9 @@
     $mail->SMTPSecure = 'ssl';  
     $mail->Host = 'smtp.gmail.com'; 
     $mail->Port = 465; 
-    $mail->Username = 'closestore.contato@gmail.com'; 
-    $mail->Password = 'close4521';
-    $mail->SetFrom('closestore.contato@gmail.com', 'Close!');
+    $mail->Username = $originEmail; 
+    $mail->Password = $originPassword;
+    $mail->SetFrom($originEmail, 'Close!');
     $mail->addAddress($emailDestinatario,'');
     $mail->Subject = $tituloEmail;
     $mail->msgHTML($message);
